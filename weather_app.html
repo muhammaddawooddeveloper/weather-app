@@ -95,18 +95,18 @@ margin-right: 10px;
     <div class="card">
         <div class="search">
             <input type="text" spellcheck="false">
-            <button><img src="img/search1-removebg-preview (1).png" alt="" ></button>
+            <button><img src="img/search1-removebg-preview (1).webp" alt="" ></button>
         </div>
         <div class="error">
             <p>invalid city</p>
         </div>
         <div class="weather">
-            <img src="img/images-removebg-preview.png" alt="" class="weather-icon" style="width: 100px;">
+            <img src="img/images-removebg-preview.webp" alt="" class="weather-icon" style="width: 100px;">
             <h1 class="temp">22°C</h1>
             <h2 class="city">layyah</h2>
             <div class="details">
                 <div class="col">
-                    <img src="img/humidity-removebg-preview.png" alt="" style="width: 60px;">
+                    <img src="img/humidity-removebg-preview.webp" alt="" style="width: 60px;">
                 <div>
                     <p class="humidity">50%</p>
                     <p>Humidity</p>
@@ -114,7 +114,7 @@ margin-right: 10px;
             </div>
                 <div class="details">
                     <div class="col">
-                        <img src="img/wind-removebg-preview.png" alt="" style="width: 60px;">
+                        <img src="img/wind-removebg-preview.webp" alt="" style="width: 60px;">
                      <div>
                         <p class="wind">15 km/h</p>
                         <p>wind speed</p>
@@ -153,22 +153,22 @@ margin-right: 10px;
         document.querySelector('.wind').innerHTML = data.wind.speed + " km/h";
 
         if(data.weather[0].main == "Clear"){
-            weather.src = "img/clear-removebg-preview.png" 
+            weather.src = "img/clear-removebg-preview.webp" 
         }
         else if(data.weather[0].main == "Rain"){
-            weather.src="img/rain-removebg-preview.png";
+            weather.src="img/rain-removebg-preview.webp";
         }  
         else if(data.weather[0].main == "Clouds"){
-            wheater_ico.src="img/cloud-removebg-preview.png"
+            wheater_ico.src="img/cloud-removebg-preview.webp"
         }
         else if(data.weather[0].main == "Drizzle"){
-            wheater_ico.src="img/drizzle-removebg-preview.png"
+            wheater_ico.src="img/drizzle-removebg-preview.webp"
         }
         else if(data.weather[0].main == "Foggy"){
-            wheater_ico.src="img/foggy-removebg-preview.png"
+            wheater_ico.src="img/foggy-removebg-preview.webp"
         }
         else if(data.weather[0].main == "Mist"){
-            wheater_ico.src="img/mist-removebg-preview.png"
+            wheater_ico.src="img/mist-removebg-preview.webp"
         }
         document.querySelector(".weather").style.display = "block";
     }
