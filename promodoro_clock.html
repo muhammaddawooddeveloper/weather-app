@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+#pomodoro-clock {
+    text-align: center;
+}
+
+#timer-label, #time-left {
+    font-size: 2rem;
+    margin: 20px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+</style>
+<body>
+    <div id="pomodoro-clock">
+        <div id="timer-label">Session</div>
+        <div id="time-left">25:00</div>
+        <button id="start_stop" onclick="startStop()">Start</button>
+        <button id="reset" onclick="resetTimer()">Reset</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+<script>
+let isRunning = false;
+let sessionLength = 25 * 60; // 25 minutes
+let timeLeft = sessionLength;
+let timerId = null;
+
+function updateDisplay() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById('time-left').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function decrementTimer() {
+    if (timeLeft > 0) {
+        timeLeft--;
+        updateDisplay();
+    } else {
+        clearInterval(timerId);
+        // Here you can switch to break time and reset the timer accordingly
+        alert("Session Complete!");
+        resetTimer(); // Or startBreak();
+    }
+}
+
+function startStop() {
+    if (!isRunning) {
+        timerId = setInterval(decrementTimer, 1000);
+        isRunning = true;
+    } else {
+        clearInterval(timerId);
+        isRunning = false;
+    }
+}
+
+function resetTimer() {
+    clearInterval(timerId);
+    isRunning = false;
+    timeLeft = sessionLength;
+    updateDisplay();
+}
+
+// Initial display update
+updateDisplay();
+
+</script>
+</html>

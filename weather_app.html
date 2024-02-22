@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body{
+    background-color: black;
+}
+.card{
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #00feba, #5b548a);
+    color: #fff;
+    margin: 100px auto 0;   /*100% top 0 from bottom and auto left right  */
+    border-radius: 20px;
+    padding: 40px 35px;
+    text-align: center;
+}
+.search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.search input{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    padding: 2px 20px;   /* t b 2px L R 20px */
+    height: 40px;
+    font-size: larger;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+}
+.search button{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+.search button img{
+    width: 26px;
+    background-color: #fff;
+}
+.weather-icon{
+    width: 170px;
+    margin-top: 30px;
+    
+}
+.weather-icon h1{
+    font-size: 80px;
+    font-weight: 500;
+}
+.weather-icon h2{
+    font-size: 40px;
+    font-weight: 400;
+    /* margin-top: -10px; */
+}
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+}
+.col img{
+width: 400px;
+margin-right: 10px;
+}
+.humidity , .wind{
+    font-size: 25px;
+    margin-top: 4px;
+}
+.weather{
+    display: none;
+}
+.error{
+    display: none;
+}
+</style>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" spellcheck="false">
+            <button><img src="img/search1-removebg-preview (1).png" alt="" ></button>
+        </div>
+        <div class="error">
+            <p>invalid city</p>
+        </div>
+        <div class="weather">
+            <img src="img/images-removebg-preview.png" alt="" class="weather-icon" style="width: 100px;">
+            <h1 class="temp">22°C</h1>
+            <h2 class="city">layyah</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="img/humidity-removebg-preview.png" alt="" style="width: 60px;">
+                <div>
+                    <p class="humidity">50%</p>
+                    <p>Humidity</p>
+                </div>
+            </div>
+                <div class="details">
+                    <div class="col">
+                        <img src="img/wind-removebg-preview.png" alt="" style="width: 60px;">
+                     <div>
+                        <p class="wind">15 km/h</p>
+                        <p>wind speed</p>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    const apikey = "5b2c31d23dd542579072b653ea33c2ed";
+    const apiurl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+    const searchbox = document.querySelector(".search input");
+    const searchbtn = document.querySelector(".search button");
+    var weather = document.querySelector(".weather-icon");
+    async function checkwheater(city)
+    {
+        const response = await fetch(apiurl + city + `&appid=${apikey}`);
+        if (response.status == 404){
+            document.querySelector(".error").style.display="block";
+            document.querySelector(".weather").style.display="none";
+        }
+        else{
+            document.querySelector(".error").style.display="none";
+            document.querySelector(".weather").style.display="block";
+        }
+        console.log(response.type);
+        var data = await response.json();
+        console.log(data);
+        document.querySelector('.city').innerHTML = data.name;
+        document.querySelector('.temp').innerHTML = data.main.temp + "°C";
+        document.querySelector('.humidity').innerHTML = data.main.humidity + "%";
+        document.querySelector('.wind').innerHTML = data.wind.speed + " km/h";
+
+        if(data.weather[0].main == "Clear"){
+            weather.src = "img/clear-removebg-preview.png" 
+        }
+        else if(data.weather[0].main == "Rain"){
+            weather.src="img/rain-removebg-preview.png";
+        }  
+        else if(data.weather[0].main == "Clouds"){
+            wheater_ico.src="img/cloud-removebg-preview.png"
+        }
+        else if(data.weather[0].main == "Drizzle"){
+            wheater_ico.src="img/drizzle-removebg-preview.png"
+        }
+        else if(data.weather[0].main == "Foggy"){
+            wheater_ico.src="img/foggy-removebg-preview.png"
+        }
+        else if(data.weather[0].main == "Mist"){
+            wheater_ico.src="img/mist-removebg-preview.png"
+        }
+        document.querySelector(".weather").style.display = "block";
+    }
+
+    searchbtn.addEventListener('click', function(){
+        checkwheater(searchbox.value);
+        document.querySelector(".weather").style.disply="block";
+        searchbox.value = ''; // Clear the search box after search
+        // searchbox.focus(); // Focus on the search box for the next input
+        // checkwheater(city);
+        // weatherc.disply = inline;
+
+    });
+</script>
+</html>
